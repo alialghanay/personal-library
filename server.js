@@ -6,6 +6,7 @@ const cors        = require('cors');
 require('dotenv').config();
 
 const apiRoutes         = require('./routes/api.js');
+const myDb              = require('./db.js');
 const fccTestingRoutes  = require('./routes/fcctesting.js');
 const runner            = require('./test-runner');
 
@@ -27,8 +28,11 @@ app.route('/')
 //For FCC testing purposes
 fccTestingRoutes(app);
 
+// my data base conncation
+myDb();
+
 //Routing for API 
-apiRoutes(app);  
+apiRoutes(app);
     
 //404 Not Found Middleware
 app.use(function(req, res, next) {

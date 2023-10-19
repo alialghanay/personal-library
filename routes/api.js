@@ -7,41 +7,58 @@
 */
 
 'use strict';
+const { schemafind, schemaCreate, schemaUpdate, schemaDelete} = require('./schemaFun');
 
 module.exports = function (app) {
 
   app.route('/api/books')
     .get(function (req, res){
-      //response will be array of book objects
-      //json res format: [{"_id": bookid, "title": book_title, "commentcount": num_of_comments },...]
+      let objToFind = {...req.query, ...req.body};
+      schemafind(objToFind).then(d => {
+        res.json(d);
+      })
     })
     
     .post(function (req, res){
-      let title = req.body.title;
-      //response will contain new book object including atleast _id and title
+      let objToCreate = {...req.query, ...req.body};
+      schemaCreate(objToCreate).then(d => {
+        res.status(200).json(d);
+      })
     })
     
     .delete(function(req, res){
       //if successful response will be 'complete delete successful'
+      schemaDelete({}).then(d => {
+        res.status(200).json(d);
+      })
     });
 
 
 
   app.route('/api/books/:id')
     .get(function (req, res){
-      let bookid = req.params.id;
-      //json res format: {"_id": bookid, "title": book_title, "comments": [comment,comment,...]}
+      let objToFind = {_id: req.params.id};
+      schemafind(objToFind).then(d => {
+        res.json(d);
+      })
     })
     
     .post(function(req, res){
       let bookid = req.params.id;
       let comment = req.body.comment;
       //json res format same as .get
+      let objToupdate = {...req.params, ...req.body};
+      schemaUpdate(objToupdate).then(d => {
+        res.status(200).json(d);
+      })
     })
     
     .delete(function(req, res){
       let bookid = req.params.id;
       //if successful response will be 'delete successful'
+      schemaDelete({_id: bookid}).then(d => {
+        res.status(200).json(d);
+      })
     });
   
 };
