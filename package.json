@@ -20,6 +20,9 @@
 		"nodemon": "^3.0.1",
 		"zombie": "^5.0.5"
 	},
+	"engines": {
+		"node": ">=14 <18.17.1"
+	}, 
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/alialghanay/personal-library"
