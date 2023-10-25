@@ -7,7 +7,7 @@
 */
 
 'use strict';
-const { schemafind, schemaCreate, schemaUpdate, schemaDelete} = require('./schemaFun');
+const { schemafindById, schemafind, schemaCreate, schemaUpdate, schemaDelete} = require('./schemaFun');
 
 module.exports = function (app) {
 
@@ -38,15 +38,12 @@ module.exports = function (app) {
   app.route('/api/books/:id')
     .get(function (req, res){
       let objToFind = {_id: req.params.id};
-      schemafind(objToFind).then(d => {
+      schemafindById(objToFind).then(d => {
         res.json(d);
       })
     })
     
     .post(function(req, res){
-      let bookid = req.params.id;
-      let comment = req.body.comment;
-      //json res format same as .get
       let objToupdate = {...req.params, ...req.body};
       schemaUpdate(objToupdate).then(d => {
         res.status(200).json(d);
