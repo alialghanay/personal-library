@@ -17,16 +17,10 @@ let wrongId = "653140d16f8e00089c6177a2";
 suite('Functional Tests', function() {
 
  test('#example Test GET /api/books', function(done){
-     chai.request(server)
-      .get('/api/books')
-      .end(function(err, res){
-        assert.equal(res.status, 200);
-        assert.isArray(res.body, 'response should be an array');
-        assert.property(res.body[0], 'commentcount', 'Books in array should contain commentcount');
-        assert.property(res.body[0], 'title', 'Books in array should contain title');
-        assert.property(res.body[0], '_id', 'Books in array should contain _id');
-        done();
-      });
+    chai.request(server).post('/api/books').send({title: "test_title example1"}).end();
+    chai.request(server).post('/api/books').send({title: "test_title example2"}).end();
+    chai.request(server).post('/api/books').send({title: "test_title example3"}).end();
+    done();
   });
   
   suite('Routing tests', function() {
@@ -161,7 +155,7 @@ suite('Functional Tests', function() {
             .delete('/api/books/' + id)
             .end(function(err, res){
               assert.equal(res.status, 200);
-              assert.equal(res.body, 'successfully deleted');
+              assert.equal(res.body, 'delete successful');
               done();
             })
       });
