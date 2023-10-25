@@ -15,20 +15,12 @@ chai.use(chaiHttp);
 let id;
 let wrongId = "653140d16f8e00089c6177a2";
 suite('Functional Tests', function() {
-
- test('#example Test GET /api/books', function(done){
-    chai.request(server).post('/api/books').send({title: "test_title example1"}).end();
-    chai.request(server).post('/api/books').send({title: "test_title example2"}).end();
-    chai.request(server).post('/api/books').send({title: "test_title example3"}).end();
-    done();
-  });
-  
   suite('Routing tests', function() {
-
-
-    suite('POST /api/books with title => create book object/expect book object', function() {
-      
+    suite('POST /api/books with title => create book object/expect book object', function() {    
       test('Test POST /api/books with title', function(done) {
+        chai.request(server).post('/api/books').send({title: "test_title example1"}).end();
+        chai.request(server).post('/api/books').send({title: "test_title example2"}).end();
+        chai.request(server).post('/api/books').send({title: "test_title example3"}).end();
         chai.request(server)
         .post('/api/books')
         .send({
