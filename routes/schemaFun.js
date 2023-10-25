@@ -56,7 +56,7 @@ async function schemaDelete(item) {
     try {
         const data = await Schema.deleteMany(item).exec();
         if(data.deletedCount === 0) return 'no book exists';
-        else if(data.deletedCount === 1) return "successfully deleted";
+        else if(data.deletedCount === 1) return "delete successful";
         else return "complete delete successful";
     } catch(err) {
         return err.message;
